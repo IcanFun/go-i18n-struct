@@ -28,7 +28,7 @@ Example
 ---
 ```
 type myI18n struct {
-	Id string
+	Id    string
 	Zh_CN string `file:"zh-cn"`
 	En_US string `file:"en-us"`
 }
