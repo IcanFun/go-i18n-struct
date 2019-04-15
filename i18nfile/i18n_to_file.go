@@ -11,11 +11,7 @@ type I18n interface {
 	ID()string
 }
 
-type I18ns interface {
-	Items()[]I18n
-}
-
-func WriteToFile(i18ns I18ns, path string) error {
+func WriteToFile(i18ns []I18n, path string) error {
 	exist := checkFileIsExist(path)
 
 	if !exist {
@@ -25,20 +21,19 @@ func WriteToFile(i18ns I18ns, path string) error {
 		}
 	}
 
-	items := i18ns.Items()
-	if len(items) == 0 {
+	if len(i18ns) == 0 {
 		return nil
 	}
 
 	m := make(map[string][]map[string]string)
-	t := reflect.TypeOf(items[0])
+	t := reflect.TypeOf(i18ns[0])
 	for i := 0; i < t.NumField(); i++ {
 		f := t.Field(i)
 		if tag := f.Tag.Get("file"); tag != "" {
-			m[tag] = make([]map[string]string, len(items))
+			m[tag] = make([]map[string]string, len(i18ns))
 		}
 	}
-	for i, item := range items {
+	for i, item := range i18ns {
 		t := reflect.TypeOf(item)
 		v := reflect.ValueOf(item)
 		for j := 0; j < t.NumField(); j++ {
