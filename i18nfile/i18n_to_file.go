@@ -8,7 +8,7 @@ import (
 )
 
 type I18n interface {
-	ID()string
+	ID() string
 }
 
 func WriteToFile(i18ns []I18n, path string) error {
