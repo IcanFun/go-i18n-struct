@@ -1,4 +1,4 @@
-package go_i18n_struct
+package i18nfile
 
 import (
 	"encoding/json"
